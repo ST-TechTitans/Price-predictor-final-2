@@ -1,5 +1,5 @@
 # print("hell")
-from tkinter import Image
+#from tkinter import Image
 
 import streamlit as st
 # from streamlit.navigation import page
@@ -128,7 +128,7 @@ import streamlit as st
 #     st.write("This site has been created by a team known as The Tech Titans which in 2026 consists of two members Aaryan Garg and Saatvik Talwar")
 
 
-import streamlit as st
+#import streamlit as st
 # from PIL import Image
 # import
 #
