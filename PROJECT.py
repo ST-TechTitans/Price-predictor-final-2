@@ -217,91 +217,67 @@ genai.configure(api_key=GEMINI_API_KEY)
 model = genai.GenerativeModel("gemini-2.5-flash")
 
 # streamlit UI
-# Sidebar Navigation
-page = st.sidebar.radio(
-    "Navigation",
-    ["Home", "About"]
-)
 
-if page == "Home":
-
-  st.set_page_config(
+st.set_page_config(
     page_title="Generative AI",
     layout="centered"
-   )
+)
 
 
-  st.title("An item price estimator")
+st.title("An item price estimator")
 
-  st.write(
+st.write(
     "Upload an image and provide a description."
     "Gemini will analyze the item and estimate its market value"
-  )
+)
 
-  uploaded_file = st.file_uploader(
+uploaded_file = st.file_uploader(
     "Upload an image",
     type=["png", "jpg", "jpeg", "webp"]
-  )
+)
 
-  description = st.text_area(
+description = st.text_area(
     "item description",
     placeholder="Exampple : Used Samsung Z fold 4 256GB, excellent condition"
 
-  )
-  if st.button("Estimate Price"):
-      if uploaded_file is None:
-          sṭ.warning("Please upload an image")
-          st.stop()
+)
+if st.button("Estimate Price"):
+    if uploaded_file is None:
+        sṭ.warning("Please upload an image")
+        st.stop()
 
-      image = Image.open(uploaded_file)
+    image = Image.open(uploaded_file)
 
-      st.image(
+    st.image(
         image,
         caption="Uploaded Item",
         use_container_width=True
-      )
-      prompt = f"""
-     You are an expert of product valuation specialist.
-     Analyze the uploaded image and the user's description
+    )
+    prompt = f"""
+   You are an expert of product valuation specialist.
+   Analyze the uploaded image and the user's description
 
-     user Description: 
-     {description}
-     Determine: 
-     1.What the item appears to be.
-     2.Its likely condition.
-     3.Estimated price range in USD.
-     4.Estimated price range in INR.
-     5.Confidece score (0-100%).
-     6.Key factors affecting the valuation.
-     7.A short sumarry.
+   user Description: 
+   {description}
+   Determine: 
+   1.What the item appears to be.
+   2.Its likely condition.
+   3.Estimated price range in USD.
+   4.Estimated price range in INR.
+   5.Confidece score (0-100%).
+   6.Key factors affecting the valuation.
+   7.A short sumarry.
 
-     Return the answer in clean markdown format.
-     """
-      try:
-          with st.spinner("Annalyzing the item and estimating its market value..."):
-              response = model.generate_content(
-                  [prompt, image]
+   Return the answer in clean markdown format.
+   """
+    try:
+        with st.spinner("Annalyzing the item and estimating its market value..."):
+            response = model.generate_content(
+                [prompt, image]
 
-              )
-          st.subheader("Estimated Value")
-          st.markdown(response.text)
-      except Exception as e:
-          st.error(f"Error: {e}")
-
-#About Page
-  elif page == "About":
-     st.title("About")
-
-     st.write(
-        "This site has been created by a team known as The Tech Titans, "
-        "which in 2026 consists of two members: Aaryan Garg and Saatvik Talwar.")
-    st.header("Contact")
-    st.subheader("Saatvik Talwar")
-    st.write("Phone Number:8860080749")
-    st.write("Email Address: saatvik.techtitans@gmail.com")
-    st.subheader("Aaryan Garg")
-    st.write("Phone Number:9872977101")
-    st.write("Email Address: aaryan11077@gmail.com")
-    st.subheader("Common official Email Address✉️: thetechtitans@gmail.com")
-    st.write("Please feel free to give suggestions and issues with this app.")
+            )
+        st.subheader("Estimated Value")
+        st.markdown(response.text)
+    except Exception as e:
+        st.error(f"Error: {e}")
 
